@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>s2layer_factoryDialogBase</class>
+ <widget class="QDialog" name="s2layer_factoryDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>542</width>
+    <height>463</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sentinel-2 WMS layers</string>
+  </property>
+  <widget class="QDialogButtonBox" name="button_box">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>420</y>
+     <width>341</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>521</width>
+     <height>401</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="mainLayout">
+    <item>
+     <widget class="QGroupBox" name="imagesGroupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Sentinel-2 images</string>
+      </property>
+      <widget class="QWidget" name="formLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>501</width>
+         <height>169</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="imagesFormLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="collectionLabel">
+          <property name="text">
+           <string>Collection</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="collectionComboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="currentText">
+           <string>Sentinel-2 L1C (Top Of Atmosphere)</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>Sentinel-2 L1C (Top Of Atmosphere)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Sentinel-2 L2A (Surface Reflectance)</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="compositionLabel">
+          <property name="text">
+           <string>Composition</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="compositionComboBox">
+          <item>
+           <property name="text">
+            <string>Mosaic</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Mean</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Median</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <layout class="QHBoxLayout" name="dateRangeLayout">
+          <item>
+           <widget class="QLabel" name="onLabel">
+            <property name="text">
+             <string>on</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="dateRangeSlider">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>365</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="dayLabel">
+            <property name="text">
+             <string> days(s) after start date</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="startDateLabel">
+          <property name="text">
+           <string>Start date</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QDateEdit" name="startDateEdit"/>
+        </item>
+        <item row="4" column="1">
+         <widget class="QCheckBox" name="filterCloudsCheckBox">
+          <property name="toolTip">
+           <string>Mask pixels with clouds using the Sentinel-2 QA band</string>
+          </property>
+          <property name="text">
+           <string>Filter cloudy pixels</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="maxCloudyPixelsLabel">
+          <property name="text">
+           <string>Max cloudy pixels %</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QSlider" name="maxCloudyPixelsSlider">
+            <property name="toolTip">
+             <string>Filter images having a cloudy pixels percentage greater than...</string>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="percentageLabel">
+            <property name="text">
+             <string>  %</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Display</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>19</y>
+         <width>501</width>
+         <height>171</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="displayLabel">
+            <property name="text">
+             <string>Type</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="displayComboBox">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>1 band (grayscale)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3 bands (RGB)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Normalized difference (colormap)</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QStackedWidget" name="stackedWidget">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="singleBandPage">
+           <widget class="QWidget" name="formLayoutWidget_3">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>20</y>
+              <width>501</width>
+              <height>69</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="singleBandFormLayout">
+             <item row="0" column="1">
+              <widget class="QComboBox" name="singleBandComboBox">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>B1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="singleBandRangeLabel">
+               <property name="text">
+                <string>Range</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="singleBandRangeLayout">
+               <item>
+                <widget class="QDoubleSpinBox" name="singleBandMinSpinBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="singleBandRangeMarkLabel">
+                 <property name="text">
+                  <string>-</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="singleBandMaxSpinBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>0.300000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="singleBandLabel">
+               <property name="text">
+                <string>Band</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="bandsPage">
+           <widget class="QWidget" name="formLayoutWidget_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>20</y>
+              <width>501</width>
+              <height>111</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="bandsFormLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="redLabel">
+               <property name="text">
+                <string>Red</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="redComboBox">
+               <property name="currentIndex">
+                <number>3</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>B1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="greenLabel">
+               <property name="text">
+                <string>Green</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="greenComboBox">
+               <property name="currentIndex">
+                <number>2</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>B1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="blueLabel">
+               <property name="text">
+                <string>Blue</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="blueComboBox">
+               <property name="currentIndex">
+                <number>1</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>B1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="rangeLabel">
+               <property name="text">
+                <string>Range</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <layout class="QHBoxLayout" name="rangeLayout">
+               <item>
+                <widget class="QDoubleSpinBox" name="minSpinBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="rangeMarkLabel">
+                 <property name="text">
+                  <string>-</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="maxSpinBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>0.300000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="ndPage">
+           <widget class="QWidget" name="formLayoutWidget_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>20</y>
+              <width>499</width>
+              <height>102</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="ndFormLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="ndBand1Label">
+               <property name="text">
+                <string>Band 1</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="ndBand1ComboBox">
+               <property name="currentIndex">
+                <number>7</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>B1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="ndBand2Label">
+               <property name="text">
+                <string>Band 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="ndBand2ComboBox">
+               <property name="currentIndex">
+                <number>3</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>B1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B8A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>B12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="ndRangeLabel">
+               <property name="text">
+                <string>Range</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <layout class="QHBoxLayout" name="ndRangeLayout">
+               <item>
+                <widget class="QDoubleSpinBox" name="ndMinSpinBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="minimum">
+                  <double>-1.000000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>-1.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="ndRangeMarkLabel">
+                 <property name="text">
+                  <string>-</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="ndMaxSpinBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="minimum">
+                  <double>-1.000000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>1.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="colorMapLabel">
+               <property name="text">
+                <string>Color map</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="paletteComboBox"/>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>button_box</sender>
+   <signal>accepted()</signal>
+   <receiver>s2layer_factoryDialogBase</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_box</sender>
+   <signal>rejected()</signal>
+   <receiver>s2layer_factoryDialogBase</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

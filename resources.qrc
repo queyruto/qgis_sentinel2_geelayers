@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/qgis_sentinel2_geelayers" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,53 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=Sentinel-2 WMS layers
+qgisMinimumVersion=3.0
+description=Create Sentinel-2 layers using Google Earth Engine
+version=0.1
+author=Earth Observation Lab / CNES
+email=eolab.cnes@gmail.com
+
+about=This plugin enables to add a WMS layer of Sentinel-2 images
+	loaded from Google Earth Engine (GEE). To use this plugin, you
+	need a GEE account. Then you will be capable to display the
+	GEE Sentinel-2 collection and to configure the rendering: filter
+	cloudy pixels, create a composition of the images in the collection,
+	select bands, compute normalized difference such as NDVI, etc.
+
+tracker=https://github.com/queyruto/qgis_sentinel2_geelayers/issues
+repository=https://github.com/queyruto/qgis_sentinel2_geelayers
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+changelog=The changelog lists the plugin versions
+    and their changes:
+    0.1 - Initial version
+
+# Tags are comma separated with spaces allowed
+tags=wms, sentinel2, L1C, L2A, Google Earth Engine
+
+homepage=https://github.com/queyruto/qgis_sentinel2_geelayers
+category=Web
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+
