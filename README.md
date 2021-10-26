@@ -44,7 +44,41 @@ paste in the python console.
 
 ## Install QGis plugin
 
-The plugin can be installed as any other QGis plugins (see [](https://docs.qgis.org/3.16/en/docs/training_manual/qgis_plugins/fetching_plugins.html))
+The plugin can be installed as any other QGis plugins (see [link](https://docs.qgis.org/3.16/en/docs/training_manual/qgis_plugins/fetching_plugins.html))
+
+Once installed, you get a new entry in the Web menu named "Sentinel-2 WMS layers" and an icon in the corresponding toolbar with this icon ![UI](icon.png).
+
+## Usage
+
+To create a new WMS layer with Sentinel-2 images, click on the toolbar icon (or in the menu). You will get a dialog that enables to configure the WMS layer:
+- select the images to display
+- configure the rendering of images
+
+### Select images
+
+Google Earth Engine gives access to both the Sentinel-2 L1C (Top Of Atmosphere) and the Sentinel-2 L2A (Surface Reflectance). You have to choose one.
+Then, you can filter the images having more than a given percentage of cloudy pixels. This percentage is a metadata of the Sentinel-2 images and is
+computed by the ESA processing chain.
+
+The next combobox named "Composition" lets you choose how you create the image composite of the desired collection:
+- mosaic: composite overlapping images according to their order in the collection (last on top) 
+- mean: compute the mean of overlapping images
+- median: compute the median of overlapping images (useful to remove cloudy pixels)
+
+More explanations [here](https://developers.google.com/earth-engine/guides/ic_composite_mosaic)
+
+The checkbox "Filter cloudy pixels" activates a processing that masks the pixel having a cirrus or cloud bit = 1 in the QA band of the Sentinel-2 product.
+
+The composition is created with images from the start date until the start date + duration (in days).
+
+### Render images
+
+The composition can be rendered three ways:
+- single band (grayscale)
+- 3 bands (RGB)
+- compute a normalized difference between 2 bands and render it with a colormap
+
+The widgets let you select the desired band(s) and their display range. 
 
 ## Report bugs
 
