@@ -21,20 +21,20 @@
  *                                                                         *
  ***************************************************************************/
 """
+import os.path
+
+# QGIS import
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QDate
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
-from qgis.core import Qgis, QgsProject, QgsRasterLayer
+from qgis.core import Qgis
 
 # Initialize Qt resources from file resources.py
 from .resources import *
-from .palette import palette
-# Import the code for the dialog
-from .qgis_sentinel2_geelayers_dialog import s2layer_factoryDialog
-import os.path
 
-# Import GEE
-import ee
+# Project
+from .palette import palette
+from .qgis_sentinel2_geelayers_dialog import s2layer_factoryDialog
 
 
 class s2layer_factory:
@@ -71,6 +71,9 @@ class s2layer_factory:
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
+
+        # init the proxy for python environment
+        self.setProxy()
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -180,7 +183,6 @@ class s2layer_factory:
 
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        self.setProxy()
         if self.first_start is True:
             self.first_start = False
             self.dlg = s2layer_factoryDialog()
@@ -270,6 +272,10 @@ class s2layer_factory:
         """Create the Google Earth Engine WMS layer following the configuration setup in the GUI
         """
 
+        # Import GEE inside method to avoid internet connection at plugin startup
+        import ee
+        from ee_plugin import Map
+
         # 1. Connect to Google Earth Engine server
         # ----------------------------------------
         self.iface.statusBarIface().showMessage("Connecting to GEE server...")
@@ -309,6 +315,7 @@ class s2layer_factory:
         collection = collection.map(normalizeS2)
 
         # set visualisation conf
+        visualization = {}
         if self.dlg.displayComboBox.currentIndex() == 0:
             # configure map visualisation
             bands = [self.dlg.singleBandComboBox.currentText()]
@@ -358,29 +365,12 @@ class s2layer_factory:
             compositionName = "median"
 
         # get the GEE map url
-        map_id_dict = ee.Image(image).getMapId(visualization)
-        url = map_id_dict['tile_fetcher'].url_format
+        eeObject = ee.Image(image)
+        layerName = f'{displayName} {compositionName} [{", ".join(bands)}] ({startDateStr} - {endDateStr})'
 
         # 3. Create the QGis raster layer
         # -------------------------------
-        rlayer = QgsRasterLayer(
-            f"type=xyz&url={url}",
-            f'{displayName} {compositionName} [{", ".join(bands)}] ({startDateStr} - {endDateStr})',
-            'wms')
-
-        if rlayer.isValid():
-            QgsProject.instance().addMapLayer(rlayer)
-            self.iface.messageBar().pushMessage("Success", f"Opening layer at URL: {url}.")
-            self.iface.statusBarIface().showMessage(
-                f"Layer at URL {url} has been successfully created!")
-        else:
-            # progressMessageBar.setText("Invalid layer")
-            # progress.setValue(10)
-            self.iface.messageBar().pushMessage(
-                "Failure",
-                f"Invalid layer at URL: {url}.",
-                level=Qgis.Critical)
-            self.iface.statusBarIface().showMessage(f"Invalid layer at URL {url}.")
+        Map.addLayer(eeObject, visualization, layerName, True)
 
 
 def maskS2clouds(image):

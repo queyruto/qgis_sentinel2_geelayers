@@ -10,7 +10,9 @@ This plugin uses the python Google Earth Engine API: `earthengine-api` python pa
 
 First, if you did not sign-up for Google Earth Engine, do it [here](https://earthengine.google.com/signup/)
 
-Then install `earthengine-api` in the QGis python environment.
+Then install the great QGis plugin named [qgis-earthengine-plugin](https://github.com/gee-community/qgis-earthengine-plugin). You need a QGis version > 3.18. Follow the instructions to install this plugin.
+
+If you get difficulties to install the python Earth Engine API, you can do that:
 
 1. Open an OSGeo4W Shell
 2. Type the following commands:

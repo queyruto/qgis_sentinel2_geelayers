@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+# Copyright (c) 2018 Gennadii Donchyts. All rights reserved.
+
+# This work is licensed under the terms of the MIT license.  
+# For a copy, see <https://opensource.org/licenses/MIT>.
+
 """
 Color palettes to render images
 """
-
 
 # color palette for normalized difference visualization
 palette = {
